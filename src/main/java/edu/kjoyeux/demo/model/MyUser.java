@@ -1,0 +1,74 @@
+package edu.kjoyeux.demo.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import edu.kjoyeux.demo.view.VueEntreprise;
+import edu.kjoyeux.demo.view.VueUtilisateur;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Getter
+@Setter
+@Table(name = "utilisateur")
+public class MyUser {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView({VueUtilisateur.class, VueEntreprise.class})
+    private Integer id;
+    @Column(length = 80, name="nom", nullable = false)
+    @JsonView({VueUtilisateur.class, VueEntreprise.class})
+    private String nom;
+    @JsonView({VueUtilisateur.class, VueEntreprise.class})
+    private String prenom;
+    private String motDePasse;
+    @JsonView({VueUtilisateur.class, VueEntreprise.class})
+    private String email;
+    @ManyToOne
+    @JsonView({VueUtilisateur.class})
+    private Pays pays;
+    @JsonView({VueUtilisateur.class, VueEntreprise.class})
+    @ManyToOne
+    private Role role;
+
+    @ManyToOne
+    @JsonView(VueUtilisateur.class)
+    private Entreprise entreprise;
+    @JsonView(VueUtilisateur.class)
+    private String nomImageProfil;
+
+    @Override
+    public String toString() {
+        return "MyUser{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", motDePasse='" + motDePasse + '\'' +
+                ", email='" + email + '\'' +
+                ", pays=" + pays +
+                ", admin=" + role +
+                ", entreprise=" + entreprise +
+                ", emploisRecherche=" + emploisRecherche +
+                '}';
+    }
+
+    @ManyToMany
+    @JoinTable(name = "recherche_emploi_utilisateur",inverseJoinColumns = @JoinColumn(name = "emploi_id"))
+    @JsonView({VueUtilisateur.class})
+    private Set<Emploi> emploisRecherche = new HashSet<>();
+    @JsonView(VueUtilisateur.class)
+    @CreationTimestamp
+    private LocalDate createdAt;
+    @JsonView(VueUtilisateur.class)
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+}
