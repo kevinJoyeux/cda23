@@ -2,12 +2,10 @@ package edu.kjoyeux.demo.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import edu.kjoyeux.demo.dao.UtilisateurDao;
-import edu.kjoyeux.demo.model.ImageDto;
 import edu.kjoyeux.demo.model.MyUser;
 import edu.kjoyeux.demo.model.Role;
 import edu.kjoyeux.demo.security.JwtUtils;
 import edu.kjoyeux.demo.services.FichierService;
-import edu.kjoyeux.demo.view.VueEntreprise;
 import edu.kjoyeux.demo.view.VueUtilisateur;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

@@ -1,10 +1,8 @@
 package edu.kjoyeux.demo.dao;
 
-import edu.kjoyeux.demo.model.ImageDto;
 import edu.kjoyeux.demo.model.MyUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
