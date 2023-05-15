@@ -46,7 +46,6 @@ public class ConnexionController {
                             myUser.getMotDePasse()
                     )
             ).getPrincipal();
-            System.out.println(myUser.toString());
         }catch (BadCredentialsException e){
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }

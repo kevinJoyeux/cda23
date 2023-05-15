@@ -1,6 +1,7 @@
 package edu.kjoyeux.demo.security;
 
 import edu.kjoyeux.demo.model.MyUser;
+import edu.kjoyeux.demo.model.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,8 +30,16 @@ public class MonUserDetails implements UserDetails {
         }else{
             role.add(new SimpleGrantedAuthority("ROLE_UTILISATEUR"));
         }
-       return role;*/
-        return List.of(new SimpleGrantedAuthority(MyUser.getRole().getNom()));
+       return role;
+        if(MyUser.getRole()!=null){
+            return List.of(new SimpleGrantedAuthority(MyUser.getRole().getNom()));
+        }
+        return List.of(new SimpleGrantedAuthority("ROLE_UTILISATEUR"));*/
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        for (Role role : MyUser.getRoles()){
+            authorities.add(new SimpleGrantedAuthority(role.getNom()));
+        }
+        return authorities;
     }
 
     @Override

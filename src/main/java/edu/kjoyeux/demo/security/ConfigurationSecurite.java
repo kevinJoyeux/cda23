@@ -50,9 +50,9 @@ public class ConfigurationSecurite extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/connexion","/inscription","/utilisateur-par-pays/**").permitAll()
+                .antMatchers("/connexion","/inscription").permitAll()
                 .antMatchers("/admin/**").hasAnyRole("ADMINISTRATEUR")
-                .antMatchers("/**").hasAnyRole("ADMINISTRATEUR","UTILISATEUR")
+                .antMatchers("/**","/utilisateurs").hasAnyRole("ADMINISTRATEUR","UTILISATEUR")
                 .anyRequest().authenticated()
                 .and().exceptionHandling()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

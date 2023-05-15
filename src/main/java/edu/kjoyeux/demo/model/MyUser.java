@@ -12,7 +12,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -36,29 +38,15 @@ public class MyUser {
     @JsonView({VueUtilisateur.class})
     private Pays pays;
     @JsonView({VueUtilisateur.class, VueEntreprise.class})
-    @ManyToOne
-    private Role role;
+    @ManyToMany
+    @JoinTable(name = "role_utilisateur",inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles = new ArrayList<>();
 
     @ManyToOne
     @JsonView(VueUtilisateur.class)
     private Entreprise entreprise;
     @JsonView(VueUtilisateur.class)
     private String nomImageProfil;
-
-    @Override
-    public String toString() {
-        return "MyUser{" +
-                "id=" + id +
-                ", nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", motDePasse='" + motDePasse + '\'' +
-                ", email='" + email + '\'' +
-                ", pays=" + pays +
-                ", admin=" + role +
-                ", entreprise=" + entreprise +
-                ", emploisRecherche=" + emploisRecherche +
-                '}';
-    }
 
     @ManyToMany
     @JoinTable(name = "recherche_emploi_utilisateur",inverseJoinColumns = @JoinColumn(name = "emploi_id"))

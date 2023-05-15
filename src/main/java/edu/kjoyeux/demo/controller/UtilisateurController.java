@@ -104,7 +104,7 @@ public ResponseEntity<byte[]> getImageProfil(@PathVariable int idUtilisateur) {
         }
         Role role = new Role();
         role.setId(1);
-        nouvelMyUser.setRole(role);
+        nouvelMyUser.getRoles().add(role);
         String passwordHache = passwordEncoder.encode("root");
         nouvelMyUser.setMotDePasse(passwordHache);
 
